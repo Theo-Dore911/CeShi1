@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能用药指导平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: #1e90ff;
+            color: #ffffff;
+            border-radius: 10px;
+        }
+        
+        .hospital-name {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+        
+        .platform-name {
+            font-size: 18px;
+            font-weight: 300;
+            margin-bottom: 15px;
+            color: #e6f2ff;
+        }
+        
+        .hospital-image-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: #3a9bff;
+            border-radius: 8px;
+            margin: 10px 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+        
+        .patient-info {
+            background-color: #2a7bc9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #ffffff;
+        }
+        
+        .patient-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+        
+        .patient-id, .visit-time {
+            font-size: 16px;
+            margin-bottom: 3px;
+            color: #ffffff;
+        }
+        
+        .service-title {
+            font-size: 24px;
+            color: #1e90ff;
+            text-align: center;
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e6f2ff;
+        }
+        
+        .notice {
+            background-color: #fffacd;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid #ffcc00;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .disease-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid #4CAF50;
+        }
+        
+        .disease-title {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .medicine-category {
+            margin-bottom: 20px;
+        }
+        
+        .category-title {
+            font-size: 18px;
+            color: #1e90ff;
+            margin-bottom: 12px;
+            padding-left: 8px;
+            border-left: 4px solid #1e90ff;
+        }
+        
+        .medicine-item {
+            background-color: #f8fbff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #e6f2ff;
+        }
+        
+        .medicine-name {
+            font-size: 18px;
+            color: #1e6bb8;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .medicine-effect {
+            color: #444;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        .medicine-dosage {
+            background-color: #e6f2ff;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 12px 0;
+            color: #333;
+        }
+        
+        .dosage-title {
+            font-weight: bold;
+            color: #1e6bb8;
+            margin-bottom: 5px;
+        }
+        
+        .ai-note {
+            font-style: italic;
+            color: #666;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 180px;
+            text-align: center;
+        }
+        
+        .btn-consult {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-info {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 13px;
+        }
+        
+        @media (max-width: 768px) {
+            .hospital-name {
+                font-size: 24px;
+            }
+            
+            .platform-name {
+                font-size: 16px;
+            }
+            
+            .disease-title {
+                font-size: 20px;
+            }
+            
+            .btn {
+                min-width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="hospital-name">XX市第一人民医院</div>
+        <div class="platform-name">AI互联网医院平台</div>
+        
+        <!-- 纯色背景代替图片 -->
+        <div class="hospital-image-placeholder">
+            XX市第一人民医院
+        </div>
+        
+        <div class="patient-info">
+            <div class="patient-name">患者：张三</div>
+            <div class="patient-id">身份证号：3205XXXXXXXXXXXXXX</div>
+            <div class="visit-time">就诊时间：2026年1月15日</div>
+        </div>
+    </div>
+    
+    <div class="service-title">便民服务 - 智能用药指导</div>
+    
+    <div class="notice">
+        <strong>温馨提示：</strong>以下用药信息基于AI大模型分析生成，仅供参考。具体用药请遵医嘱，切勿自行更改用药方案。如有疑问，请点击下方按钮咨询医生。
+    </div>
+    
+    <!-- 腰肌劳损部分 - 简化版，只展示一种药物 -->
+    <div class="disease-section">
+        <h2 class="disease-title">腰肌劳损常用药物指导</h2>
+        
+        <div class="medicine-category">
+            <h3 class="category-title">外用制剂</h3>
+            
+            <div class="medicine-item">
+                <div class="medicine-name">双氯芬酸二乙胺乳胶剂</div>
+                <div class="medicine-effect">
+                    <strong>药物作用：</strong>可直接涂抹在疼痛部位，缓解局部肌肉、关节的轻中度疼痛，适合久坐后腰部酸痛的局部舒缓。具有抗炎、镇痛作用。
+                </div>
+                <div class="medicine-dosage">
+                    <div class="dosage-title">推荐用法用量（基于AI分析）：</div>
+                    <div>每日3-4次，每次取适量（约3-5厘米乳胶剂）涂抹于疼痛部位，轻轻按摩至吸收。</div>
+                    <div>一般使用3-5天症状会明显缓解，连续使用不超过14天。</div>
+                </div>
+                <div class="ai-note">（该数据通过AI大模型推断，具体情况请点击下方询问诊治医生）</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="action-buttons">
+        <button class="btn btn-consult" onclick="consultDoctor()">在线咨询诊治医生</button>
+        <button class="btn btn-info" onclick="moreInfo()">查看更多健康资讯</button>
+    </div>
+    
+    <div class="footer">
+        <p>XX市第一人民医院 AI互联网医院平台 © 2026</p>
+        <p>地址：XX市健康路123号 | 服务热线：XXX-XXX-XXXX</p>
+        <p>免责声明：本平台提供的信息基于AI分析，仅供参考，不能替代专业医疗建议。如有紧急情况，请立即就医。</p>
+    </div>
+
+    <script>
+        function consultDoctor() {
+            alert("即将跳转到在线咨询医生页面...\n\n模拟功能：在线咨询医生服务需登录医院APP或微信公众号使用。");
+        }
+        
+        function moreInfo() {
+            alert("即将跳转到健康资讯页面...\n\n模拟功能：这里将展示更多健康科普文章和用药指导。");
+        }
+        
+        // 简单的页面加载效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.medicine-item, .disease-section, .header');
+            elements.forEach((item, index) => {
+                item.style.opacity = '0';
+                
+                setTimeout(() => {
+                    item.style.transition = 'opacity 0.5s ease';
+                    item.style.opacity = '1';
+                }, 100 + index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
